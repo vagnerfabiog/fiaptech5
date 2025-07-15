@@ -2,7 +2,9 @@ import pandas as pd
 import json
 from pathlib import Path
 
+
 DATA_DIR = Path(__file__).parent.parent / 'data'
+
 
 def load_data():
     # === JOBS ===
@@ -37,10 +39,13 @@ def load_data():
             prospects_list.append(p)
 
     prospects = pd.DataFrame(prospects_list)
-    prospects.rename(columns={
-        'codigo': 'applicant_id',
-        'situacao_candidado': 'status'
-    }, inplace=True)
+    prospects.rename(
+        columns={
+            'codigo': 'applicant_id',
+            'situacao_candidado': 'status'
+        },
+        inplace=True
+    )
 
     # === APPLICANTS ===
     with open(DATA_DIR / 'raw' / 'Applicants.json', encoding='utf-8') as f:
@@ -56,7 +61,7 @@ def load_data():
             'nivel_academico': formacao.get('nivel_academico', ''),
             'nivel_ingles': formacao.get('nivel_ingles', ''),
             'nivel_espanhol': formacao.get('nivel_espanhol', ''),
-            'resumo_candidato': resumo
+            'resumo_candidato': resumo,
         })
 
     applicants = pd.DataFrame(applicants_list)
@@ -69,19 +74,27 @@ def load_data():
 
     # === Criar target ===
     prospects['status'] = prospects['status'].fillna('')
-    prospects['target'] = prospects['status'].str.lower().str.contains('contratado').astype(int)
+    prospects['target'] = prospects['status'].str.lower().str.contains(
+        'contratado'
+    ).astype(int)
 
     # === Merge final ===
-    df = prospects.merge(jobs, on='job_id', how='left') \
-                  .merge(applicants, on='applicant_id', how='left')
+    df = (
+        prospects
+        .merge(jobs, on='job_id', how='left')
+        .merge(applicants, on='applicant_id', how='left')
+    )
 
     # === Preencher campos textuais que podem estar ausentes ===
-    df.fillna({
-        'descricao_vaga': '',
-        'requisitos': '',
-        'resumo_candidato': '',
-        'titulo': ''
-    }, inplace=True)
+    df.fillna(
+        {
+            'descricao_vaga': '',
+            'requisitos': '',
+            'resumo_candidato': '',
+            'titulo': ''
+        },
+        inplace=True
+    )
 
     return df
 
