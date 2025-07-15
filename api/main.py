@@ -3,6 +3,8 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import joblib
 import pandas as pd
+from pathlib import Path
+
 
 # Configura logging básico
 logging.basicConfig(level=logging.INFO)
@@ -11,7 +13,8 @@ logger = logging.getLogger(__name__)
 app = FastAPI(title="Datathon ML API")
 
 # Carrega pipeline treinado
-pipeline = joblib.load('model.joblib')
+MODEL_PATH = Path(__file__).parent.parent / 'model.joblib'
+pipeline = joblib.load(MODEL_PATH)
 
 class Payload(BaseModel):
     __root__: dict
