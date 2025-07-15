@@ -30,7 +30,7 @@ jobs:
         run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
 
       - name: Executar testes
-        run: pytest --maxfail=1 --disable-warnings -q
+        run: PYTHONPATH=src pytest --maxfail=1 --disable-warnings -q
 
       - name: Build Docker
         run: docker build . -t datathon-api

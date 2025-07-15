@@ -2,7 +2,7 @@ import joblib
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import cross_val_score
-from data_loader import load_data
+from .data_loader import load_data
 from features import build_preprocessor
 
 
