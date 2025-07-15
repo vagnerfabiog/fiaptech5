@@ -16,10 +16,10 @@ def build_preprocessor(numeric_features, categorical_features, text_features):
 
     # Pipeline para categóricos
     categorical_transformer = Pipeline(
-        [
-            ('imputer', SimpleImputer(strategy='constant', fill_value='missing')),
-            ('onehot', OneHotEncoder(handle_unknown='ignore')),
-        ]
+      [
+        ('imputer', SimpleImputer(strategy='constant', fill_value='missing')),
+        ('onehot', OneHotEncoder(handle_unknown='ignore')),
+      ]
     )
 
     # Transformers de texto: TF-IDF para cada campo
