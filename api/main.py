@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 app = FastAPI(title="Datathon ML API")
 
 # Carrega pipeline treinado
-pipeline = joblib.load('model.joblib')
+pipeline = joblib.load('../model.joblib')
 
 class Payload(BaseModel):
     __root__: dict
