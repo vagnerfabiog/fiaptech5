@@ -20,7 +20,7 @@ def load_data():
             'titulo': info.get('titulo_vaga', ''),
             'tipo_contratacao': info.get('tipo_contratacao', ''),
             'descricao_vaga': perfil.get('principais_atividades', ''),
-             'requisitos': perfil.get(
+            'requisitos': perfil.get(
                  'competencia_tecnicas_e_comportamentais', ''),
             'local_trabalho': perfil.get('local_trabalho', ''),
             'nivel_academico_vaga': perfil.get('nivel_academico', ''),
