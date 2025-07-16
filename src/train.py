@@ -6,7 +6,7 @@ from .data_loader import load_data
 from .features import build_preprocessor
 
 
-def main():
+def main(cv_folds=5):
     # 1) Carrega dados
     df = load_data()
     X = df.drop(columns=['job_id', 'applicant_id', 'status', 'target'])
@@ -43,7 +43,7 @@ def main():
         pipeline,
         X,
         y,
-        cv=5,
+        cv=cv_folds,
         scoring='roc_auc',
     )
     print(f'Mean ROC-AUC: {scores.mean():.4f}')
